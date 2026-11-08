@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="817b2fab0155fe753fb67dcc17eedb2f0e4e4807">
+<index version="1" commit="817b2fab0155fe753fb67dcc17eedb2f0e4e4807" name="Grayson Solis Scripts">
   <category name="Development">
     <reapack name="graysonsolis_check script's parameter indexes.lua" type="script" desc="Check Parameter Indexes">
       <metadata>
