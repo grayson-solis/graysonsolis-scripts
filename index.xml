@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<index version="1" commit="817b2fab0155fe753fb67dcc17eedb2f0e4e4807">
+  <category name="Development">
+    <reapack name="graysonsolis_check script's parameter indexes.lua" type="script" desc="Check Parameter Indexes">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Prints each FX on the first selected track along with its parameter indexes (max 50 per FX)\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Development/graysonsolis_check%20script's%20parameter%20indexes.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="Envelopes-Automation Items">
+    <reapack name="graysonsolis_Add Automation Item As Long As Item Above Mouse Cursor.lua" type="script">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Add an Automation item of the length of the current item above the mouse cursor\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Envelopes-Automation%20Items/graysonsolis_Add%20Automation%20Item%20As%20Long%20As%20Item%20Above%20Mouse%20Cursor.lua</source>
+      </version>
+    </reapack>
+    <reapack name="graysonsolis_Add Automation Item Under Midi Note in Item Above.lua" type="script">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Add an Automation item of the length of the current note in the item above your mouse cursor\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Envelopes-Automation%20Items/graysonsolis_Add%20Automation%20Item%20Under%20Midi%20Note%20in%20Item%20Above.lua</source>
+      </version>
+    </reapack>
+    <reapack name="graysonsolis_Move Selected Envelope Lane Down.lua" type="script" desc="Move Selected Envelope Lane Down">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Moves the selected FX parameter envelope lane down one visible lane among its plugin's envelopes\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Envelopes-Automation%20Items/graysonsolis_Move%20Selected%20Envelope%20Lane%20Down.lua</source>
+      </version>
+    </reapack>
+    <reapack name="graysonsolis_Move Selected Envelope Lane Up.lua" type="script" desc="Move Selected Envelope Lane Up">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Moves the selected FX parameter envelope lane up one visible lane among its plugin's envelopes\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Envelopes-Automation%20Items/graysonsolis_Move%20Selected%20Envelope%20Lane%20Up.lua</source>
+      </version>
+    </reapack>
+    <reapack name="graysonsolis_Reset Envelope Segment to 0dB.lua" type="script" desc="Set envelope segment under mouse to 0 dB">
+      <version name="1.1" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Envelopes-Automation%20Items/graysonsolis_Reset%20Envelope%20Segment%20to%200dB.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="FX">
+    <reapack name="graysonsolis_AB Comparison (Last 2 FX on Chain).lua" type="script" desc="A/B Compare Last Two FX on Selected Track">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Toggles bypass between the last two FX in the selected tracks FX chain\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="Grayson" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/FX/graysonsolis_AB%20Comparison%20(Last%202%20FX%20on%20Chain).lua</source>
+      </version>
+    </reapack>
+    <reapack name="graysonsolis_Add humanizer to top of track chain.lua" type="script" desc="Add Humanizer to top of Track Chain">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Inserts the built-in JS humanizer at slot 1 on the selected track\u8217's FX chain.\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/FX/graysonsolis_Add%20humanizer%20to%20top%20of%20track%20chain.lua</source>
+      </version>
+    </reapack>
+    <reapack name="graysonsolis_Auto Move new VSTi to Top of FX Chain.lua" type="script" desc="Auto Arrange FX Chain">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Enforces FX chain order on all tracks every second:\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab Prioritize midi fx (Humanizer, Swing Thing, Reaticulate, ReaControlMIDI, MB Note Quantize, note_quantizer) FIRST, in any order amongst themselves\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 2.\tx360\tab VST instruments directly after in order added\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 3.\tx360\tab All other FX: after instruments, in their original order\sa180\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/FX/graysonsolis_Auto%20Move%20new%20VSTi%20to%20Top%20of%20FX%20Chain.lua</source>
+      </version>
+    </reapack>
+    <reapack name="graysonsolis_No FX Chain Dialog when Copying FX Chain.lua" type="script" desc="No FX Chain Dialog when Copying FX Chain">
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/FX/graysonsolis_No%20FX%20Chain%20Dialog%20when%20Copying%20FX%20Chain.lua</source>
+      </version>
+    </reapack>
+    <reapack name="graysonsolis_Show Inserted Instrument on Currently Selected Track.lua" type="script" desc="Show Last Inserted Instrument on Currently Selected Track">
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/FX/graysonsolis_Show%20Inserted%20Instrument%20on%20Currently%20Selected%20Track.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="Items Editing">
+    <reapack name="graysonsolis_Quantize Items.lua" type="script" desc="Snap selected MIDI item edges to barlines (content stays in place)">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Trims the edges of selected MIDI items to the nearest barline and resolves slight overlaps or gaps between neighbouring items on the same track. Items are never split and never moved, so notes keep their exact positions.\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="Grayson" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Items%20Editing/graysonsolis_Quantize%20Items.lua</source>
+      </version>
+    </reapack>
+    <reapack name="graysonsolis_Reposition Items.lua" type="script" desc="Reposition Items">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Space items by the amount below ("spacing" variable)! Automatically!\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Items%20Editing/graysonsolis_Reposition%20Items.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="MIDI Editor">
+    <reapack name="graysonsolis_Fade Shape Cycle (MIDI Editor).lua" type="script" desc="Fade Shape Cycle (MIDI Editor)">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Mousewheel over a fade curve, envelope segment, automation item segment, or MIDI CC lane to cycle its shape\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="midi_editor">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/MIDI%20Editor/graysonsolis_Fade%20Shape%20Cycle%20(MIDI%20Editor).lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="Rendering">
+    <reapack name="graysonsolis_Export selected MIDI items to project path.lua" type="script" desc="Export selected MIDI items as .mid files into &lt;project&gt;/Exported MIDI (CC curves baked to points)">
+      <version name="2.2" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Rendering/graysonsolis_Export%20selected%20MIDI%20items%20to%20project%20path.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="Tracks">
+    <reapack name="graysonsolis_Add Track (Smart).lua" type="script" desc="Add Track (Smart)">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Changes how tracks are added:\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.2" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Tracks/graysonsolis_Add%20Track%20(Smart).lua</source>
+      </version>
+    </reapack>
+    <reapack name="graysonsolis_Monitor On and Change to MIDI input when Midi Instrument Loaded.lua" type="script" desc="Monitor On and Change to MIDI Input when MIDI Instrument Loaded">
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Tracks/graysonsolis_Monitor%20On%20and%20Change%20to%20MIDI%20input%20when%20Midi%20Instrument%20Loaded.lua</source>
+      </version>
+    </reapack>
+    <reapack name="graysonsolis_Monitor On when Midi Instrument Loaded.lua" type="script" desc="Monitor On when Midi Instrument Loaded">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Keeps Record Monitoring on for any track with a VSTi loaded. Bind as a global startup action!!!\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Tracks/graysonsolis_Monitor%20On%20when%20Midi%20Instrument%20Loaded.lua</source>
+      </version>
+    </reapack>
+    <reapack name="graysonsolis_No Send Dialog when Adding Sends.lua" type="script" desc="No Send Dialog when Adding Sends">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Bypass the send dialog popup when dragging sends from one track IO to another track / fx\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.1" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Tracks/graysonsolis_No%20Send%20Dialog%20when%20Adding%20Sends.lua</source>
+      </version>
+    </reapack>
+    <reapack name="graysonsolis_Select All Tracks (Ignore Collapsed State).lua" type="script" desc="Select All Tracks (Ignore Collapsed State)">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Selects every track, including collapsed ones.\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Tracks/graysonsolis_Select%20All%20Tracks%20(Ignore%20Collapsed%20State).lua</source>
+      </version>
+    </reapack>
+    <reapack name="graysonsolis_Select Immediate Parent of Selected Track.lua" type="script" desc="Select Immediate Parent of Selected Track">
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Tracks/graysonsolis_Select%20Immediate%20Parent%20of%20Selected%20Track.lua</source>
+      </version>
+    </reapack>
+    <reapack name="graysonsolis_Unselect Topmost Track in Selection.lua" type="script" desc="Unselect Topmost Track in Selection">
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Tracks/graysonsolis_Unselect%20Topmost%20Track%20in%20Selection.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="Various">
+    <reapack name="graysonsolis_Run Reaticulate if it is detected in Project.lua" type="script" desc="Run Reaticulate if it is detected in Project">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Watches the open project for the Reaticulate JSFX and starts Reaticulate once per project\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.1" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Various/graysonsolis_Run%20Reaticulate%20if%20it%20is%20detected%20in%20Project.lua</source>
+      </version>
+    </reapack>
+    <reapack name="graysonsolis_Smart Rename.lua" type="script" desc="Contextual Rename">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Renames tons of stuff in Reaper just by hovering over it\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Various/graysonsolis_Smart%20Rename.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="Various/Render Stacks Lite">
+    <reapack name="graysonsolis_Render Stacks Lite_Core.lua" type="script" desc="RenderStacks Core Library Lite">
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Various/Render%20Stacks%20Lite/graysonsolis_Render%20Stacks%20Lite_Core.lua</source>
+      </version>
+    </reapack>
+    <reapack name="graysonsolis_Render Stacks Lite_Create Regions.lua" type="script" desc="RenderStacks Create Regions Lite">
+      <metadata>
+        <link rel="website">https://graysonsolis.com</link>
+      </metadata>
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Various/Render%20Stacks%20Lite/graysonsolis_Render%20Stacks%20Lite_Create%20Regions.lua</source>
+      </version>
+    </reapack>
+    <reapack name="graysonsolis_Render Stacks Lite_Delete All Regions.lua" type="script" desc="RenderStacks Delete All Regions Lite">
+      <metadata>
+        <link rel="website">https://graysonsolis.com</link>
+      </metadata>
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Various/Render%20Stacks%20Lite/graysonsolis_Render%20Stacks%20Lite_Delete%20All%20Regions.lua</source>
+      </version>
+    </reapack>
+    <reapack name="graysonsolis_Render Stacks Lite_Delete Selected Tracks Regions.lua" type="script" desc="RenderStacks Delete Selected Track Regions Lite">
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Various/Render%20Stacks%20Lite/graysonsolis_Render%20Stacks%20Lite_Delete%20Selected%20Tracks%20Regions.lua</source>
+      </version>
+    </reapack>
+    <reapack name="graysonsolis_Render Stacks Lite_Settings.lua" type="script" desc="RenderStacks Settings Lite">
+      <metadata>
+        <link rel="website">https://graysonsolis.com</link>
+      </metadata>
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Various/Render%20Stacks%20Lite/graysonsolis_Render%20Stacks%20Lite_Settings.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="View">
+    <reapack name="graysonsolis_Switch Project Tab (Mousewheel).lua" type="script" desc="Switch Project Tab (Mousewheel)">
+      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/View/graysonsolis_Switch%20Project%20Tab%20(Mousewheel).lua</source>
+      </version>
+    </reapack>
+  </category>
+  <metadata>
+    <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 graysonsolis-scripts\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 A repo for all my scripts for Reaper, the best DAW out there. The scripts in this repository can all be installed through {\field{\*\fldinst{HYPERLINK "https://reapack.com/"}}{\fldrslt{\ul
+ReaPack
+}}}
+, a Reaper extension for installing community-made scripts.\par}
+}
+]]></description>
+  </metadata>
+</index>
