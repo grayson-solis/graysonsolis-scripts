@@ -1,6 +1,7 @@
 -- @description Set envelope segment under mouse to 0 dB
 -- @author Grayson Solis
--- @version 1.1
+-- @version 1.0
+-- Functions on envelope segment under mouse, resets it to 0dB
 
 local function GetResetValue(env)
   local _, name = reaper.GetEnvelopeName(env)

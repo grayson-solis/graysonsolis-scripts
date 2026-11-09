@@ -1,4 +1,5 @@
 -- @name RenderStacks Delete All Regions Lite
+-- @noindex
 -- @version 1.0
 -- @author Grayson Solis
 -- @description Deletes all regions in the project

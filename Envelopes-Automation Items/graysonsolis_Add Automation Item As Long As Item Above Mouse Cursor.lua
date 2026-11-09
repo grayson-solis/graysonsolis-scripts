@@ -2,7 +2,7 @@
 @ description Add Automation Item As Long As Item Above Mouse Cursor
 @author Grayson Solis
 @version 1.0
-@about Add an Automation item of the length of the current item above the mouse cursor
+@about Add an automation item of the length of the current item above the mouse cursor
 ]]
 
 local x, y = reaper.GetMousePosition()

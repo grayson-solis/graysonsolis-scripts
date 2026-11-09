@@ -4,8 +4,7 @@
 @author Grayson Solis
 @about
   Enforces FX chain order on all tracks every second:
-    1. Prioritize midi fx (Humanizer, Swing Thing, Reaticulate,
-       ReaControlMIDI, MB Note Quantize, note_quantizer) FIRST, in any order amongst themselves
+    1. Prioritize midi fx FIRST, in any order amongst themselves
     2. VST instruments directly after in order added
     3. All other FX: after instruments, in their original order
 ]]

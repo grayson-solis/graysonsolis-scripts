@@ -2,7 +2,7 @@
 @ description Add Automation Under Midi Note in Item Above
 @author Grayson Solis
 @version 1.0
-@about Add an Automation item of the length of the current note in the item above your mouse cursor
+@about Add an automation item of the length of the current note in the item above your mouse cursor
 ]]
 
 local x, y = reaper.GetMousePosition()

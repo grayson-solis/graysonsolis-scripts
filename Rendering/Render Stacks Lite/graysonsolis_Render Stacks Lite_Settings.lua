@@ -1,8 +1,15 @@
--- @name RenderStacks Settings Lite
+-- @description Render Stacks Lite
 -- @version 1.0
 -- @author Grayson Solis
--- @description Configure region creation options
 -- @website https://graysonsolis.com
+-- @about
+--   Lite version of Render Stacks that creates render regions from your stacks of items!
+--   Requires the ReaImGui extension (ReaTeam Extensions repository).
+-- @provides
+--   [main] graysonsolis_Render Stacks Lite_Create Regions.lua
+--   [main] graysonsolis_Render Stacks Lite_Delete All Regions.lua
+--   [main] graysonsolis_Render Stacks Lite_Delete Selected Tracks Regions.lua
+--   graysonsolis_Render Stacks Lite_Core.lua
 
 if not reaper.ImGui_CreateContext then return end
 
@@ -40,11 +47,26 @@ local function revertSettings()
     end
 end
 
+local REBUILD_KEYS = { "gap_tolerance", "min_region_length", "group_items" }
+
 local function applyAllSettings()
+    local rebuild = false
+    for _, k in ipairs(REBUILD_KEYS) do
+        if settings[k] ~= lastSavedSettings[k] then rebuild = true end
+    end
+    local recolor = settings.color_regions_track_color ~= lastSavedSettings.color_regions_track_color
+
     RenderStacks.saveSettings(settings)
     for k, v in pairs(settings) do lastSavedSettings[k] = v end
 
+    reaper.Undo_BeginBlock()
+    if rebuild then
+        RenderStacks.refresh_all_regions(settings)
+    elseif recolor then
+        RenderStacks.recolor_all_regions(settings)
+    end
     RenderStacks.update_highlight()
+    reaper.Undo_EndBlock("Render Stacks Lite: Apply settings", -1)
 end
 
 local function reaper_to_imgui_color(col)
@@ -74,7 +96,7 @@ local function tipReady(id, hovered)
         tipId, tipSince, tipMouseX, tipMouseY = id, now, mouseX, mouseY
         return false
     end
-    if now - tipSince < (now - tipShownAt < 1 and 0.2 or 1) then return false end
+    if now - tipSince < (now - tipShownAt < 1 and 0.13 or 0.67) then return false end
     tipShownAt = now
     return true
 end
@@ -105,6 +127,48 @@ local function heading(text, color)
     accentPushed = true
 end
 
+local KOFI_URL = "https://ko-fi.com/s/6f3b7ddc65"
+
+local function openUrl(url)
+    if reaper.CF_ShellExecute then
+        reaper.CF_ShellExecute(url)
+        return
+    end
+    local os_name = reaper.GetOS()
+    if os_name:find("Win") then
+        reaper.ExecProcess('cmd.exe /C start "" "' .. url .. '"', -1)
+    elseif os_name:find("OSX") or os_name:find("macOS") then
+        reaper.ExecProcess('/usr/bin/open "' .. url .. '"', -1)
+    else
+        reaper.ExecProcess('xdg-open "' .. url .. '"', -1)
+    end
+end
+
+local PITCH = {
+    { "Unlock everything marked with a ", 0xB0B0B0FF },
+    { "lock", 0xE06666FF },
+    { ", enable live editing of regions, and support the development of more scripts by me! :)", 0xB0B0B0FF },
+}
+
+local function wrappedPitch(width)
+    local x, glued = 0, false
+    for _, segment in ipairs(PITCH) do
+        for word in segment[1]:gmatch("%S+%s*") do
+            local w = reaper.ImGui_CalcTextSize(ctx, (word:gsub("%s+$", "")))
+            if x > 0 and not glued and x + w > width then
+                x = 0
+            elseif x > 0 then
+                reaper.ImGui_SameLine(ctx, 0, 0)
+            end
+            reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Text(), segment[2])
+            reaper.ImGui_Text(ctx, word)
+            reaper.ImGui_PopStyleColor(ctx)
+            x = x + reaper.ImGui_CalcTextSize(ctx, word)
+            glued = not word:find("%s$")
+        end
+    end
+end
+
 local function lockIcon()
     local x, y = reaper.ImGui_GetCursorScreenPos(ctx)
     local h = reaper.ImGui_GetFrameHeight(ctx)
@@ -127,7 +191,7 @@ local function lockedCheckbox(label, value, tooltip)
     local hovered = reaper.ImGui_IsItemHovered(ctx, reaper.ImGui_HoveredFlags_AllowWhenDisabled())
     reaper.ImGui_SameLine(ctx)
     lockIcon()
-    if tipReady(label, hovered or reaper.ImGui_IsItemHovered(ctx)) then
+    if hovered or reaper.ImGui_IsItemHovered(ctx) then
         reaper.ImGui_BeginTooltip(ctx)
         if tooltip then reaper.ImGui_Text(ctx, tooltip) end
         reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Text(), 0xE07070FF)
@@ -158,6 +222,41 @@ local function labelText(text)
     rowMinX, rowMinY = reaper.ImGui_GetItemRectMin(ctx)
 end
 
+local RESET_HOLD_SECONDS = 0.9
+local holdStart, pulseAt, fill, lastNow = nil, -10, 0, 0
+
+local function holdButton(label, width, seconds)
+    reaper.ImGui_Button(ctx, "##" .. label, width)
+    local minX, minY = reaper.ImGui_GetItemRectMin(ctx)
+    local maxX, maxY = reaper.ImGui_GetItemRectMax(ctx)
+    local now = reaper.time_precise()
+    local dt = now - lastNow
+    lastNow = now
+    local fired = false
+    if reaper.ImGui_IsItemActive(ctx) then
+        holdStart = holdStart or (now - fill * seconds)
+        fill = math.min(1, (now - holdStart) / seconds)
+    elseif holdStart and fill >= 1 then
+        fired, pulseAt, fill, holdStart = true, now, 0, nil
+    else
+        holdStart = nil
+        fill = math.max(0, fill - dt / 0.25)
+    end
+    local dl = reaper.ImGui_GetWindowDrawList(ctx)
+    if fill > 0 then
+        reaper.ImGui_DrawList_AddRectFilled(dl, minX, minY, minX + (maxX - minX) * fill, maxY, fill >= 1 and 0xE05555FF or 0xCB4A4AFF, 4)
+    end
+    local textW = reaper.ImGui_CalcTextSize(ctx, label)
+    local textY = minY + (maxY - minY - reaper.ImGui_GetTextLineHeight(ctx)) / 2 - 1
+    reaper.ImGui_DrawList_AddText(dl, minX + (maxX - minX - textW) / 2, textY, 0xE6E6E6FF, label)
+    local t = (now - pulseAt) / 0.6
+    if t >= 0 and t < 1 then
+        local grow = 2 + 14 * t
+        reaper.ImGui_DrawList_AddRect(reaper.ImGui_GetForegroundDrawList(ctx), minX - grow, minY - grow, maxX + grow, maxY + grow, 0xCB4A4A00 | math.floor(255 * (1 - t)), 4 + grow, 0, 2)
+    end
+    return fired
+end
+
 local PREVIEW_BASE = 0xE16182
 local levelResetHeld = false
 
@@ -179,7 +278,7 @@ local function levelSlider(width)
         local mouseX = reaper.ImGui_GetMousePos(ctx)
         local value = math.floor((mouseX - left) / span * 200 - 100 + 0.5)
         value = math.max(-100, math.min(100, value))
-        if (reaper.ImGui_GetKeyMods(ctx) & (reaper.ImGui_Mod_Ctrl() | reaper.ImGui_Mod_Alt())) == 0 then
+        if (reaper.ImGui_GetKeyMods(ctx) & (reaper.ImGui_Mod_Ctrl() | reaper.ImGui_Mod_Alt() | reaper.ImGui_Mod_Shift())) == 0 then
             value = math.floor(value / 10 + 0.5) * 10
         end
         settings.highlight_level = value / 100.0
@@ -282,25 +381,24 @@ function drawGui()
             local dirty = settingsDirty()
 
             reaper.ImGui_AlignTextToFramePadding(ctx)
-            if dirty then
-                reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Text(), 0xDB6E4AFF)
-                reaper.ImGui_Text(ctx, "Unsaved changes")
-                reaper.ImGui_PopStyleColor(ctx)
-            else
-                reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Text(), 0x808080FF)
-                reaper.ImGui_Text(ctx, "All changes saved")
-                reaper.ImGui_PopStyleColor(ctx)
-            end
 
             reaper.ImGui_PushStyleVar(ctx, reaper.ImGui_StyleVar_FramePadding(), 8, 2)
 
+            local resetLabel = "Reset Defaults"
             local saveLabel = "Save"
             local exitLabel = "Save and Exit"
+            local resetBtnW = reaper.ImGui_CalcTextSize(ctx, resetLabel) + 32
             local saveBtnW = reaper.ImGui_CalcTextSize(ctx, saveLabel) + 16
             local exitBtnW = reaper.ImGui_CalcTextSize(ctx, exitLabel) + 32
             local winW = select(1, reaper.ImGui_GetWindowSize(ctx))
+
+            if holdButton(resetLabel, resetBtnW, RESET_HOLD_SECONDS) then
+                for k, v in pairs(defaultSettings) do settings[k] = v end
+            end
+            if not reaper.ImGui_IsItemActive(ctx) then tip("Hold until the bar fills, then release to reset all settings to their defaults") end
+
             reaper.ImGui_SameLine(ctx)
-            reaper.ImGui_SetCursorPosX(ctx, math.max(4, winW - saveBtnW - exitBtnW - 24))
+            reaper.ImGui_SetCursorPosX(ctx, math.max(resetBtnW + 32, winW - saveBtnW - exitBtnW - 24))
 
             reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Button(),        dirty and 0x45B24BFF or 0x303030FF)
             reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_ButtonHovered(), dirty and 0x4DC553FF or 0x303030FF)
@@ -309,10 +407,6 @@ function drawGui()
                 applyAllSettings()
             end
             reaper.ImGui_PopStyleColor(ctx, 3)
-
-            tip(dirty
-                and "Save all settings and apply them"
-                or "Nothing to save.")
 
             reaper.ImGui_SameLine(ctx)
             reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Button(),        0x46B9FEFF)
@@ -325,37 +419,42 @@ function drawGui()
             end
             reaper.ImGui_PopStyleColor(ctx, 4)
 
-            tip("Save all settings, apply them, and close this window")
-
             reaper.ImGui_PopStyleVar(ctx)
             reaper.ImGui_EndMenuBar(ctx)
         end
 
         reaper.ImGui_SetCursorPosY(ctx, reaper.ImGui_GetCursorPosY(ctx) + 4)
-        lockIcon()
-        reaper.ImGui_SameLine(ctx)
-        reaper.ImGui_AlignTextToFramePadding(ctx)
-        reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Text(), 0xE07070FF)
-        reaper.ImGui_Text(ctx, "Locked in Lite. Available in the full version.")
-        reaper.ImGui_PopStyleColor(ctx)
+        lockedCheckbox("Start automatically when REAPER launches", false)
+
+        heading("Get the Full Version", 0xCE70B6FF)
+        reaper.ImGui_Dummy(ctx, 0, 4)
+        wrappedPitch(250 + 200 - reaper.ImGui_GetCursorPosX(ctx))
+        reaper.ImGui_Dummy(ctx, 0, 4)
+
+        local kofiLabel = "Get Render Stacks on Ko-fi"
+        reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Button(),        0xCE70B6FF)
+        reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_ButtonHovered(), 0xE47CCAFF)
+        reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_ButtonActive(),  0xA55A92FF)
+        if labelButton(kofiLabel, reaper.ImGui_CalcTextSize(ctx, kofiLabel) + 32, 0x141414FF) then openUrl(KOFI_URL) end
+        reaper.ImGui_PopStyleColor(ctx, 3)
+
+        reaper.ImGui_Dummy(ctx, 0, 8)
 
         reaper.ImGui_PushItemWidth(ctx, 200)
-
-        lockedCheckbox("Start Automatically when REAPER Launches", false)
 
         heading("Render Stacks Run", 0x34A4E1FF)
         reaper.ImGui_Dummy(ctx, 0, 4)
 
-        lockedCheckbox("Create Reverb Tails", false, "When running Render Stacks Run, add reverb tails to stacks first")
-        lockedCheckbox("Create Regions", true, "When running Render Stacks Run, create regions from stacks")
-        lockedCheckbox("Open Render Dialog", false, "When running Render Stacks Run, open the render dialog after processing")
+        lockedCheckbox("Create reverb tails", false, "When running Render Stacks Run, add reverb tails to stacks first")
+        lockedCheckbox("Create regions", false, "When running Render Stacks Run, create regions from stacks")
+        lockedCheckbox("Open render dialog", false, "When running Render Stacks Run, open the render dialog after processing")
 
         reaper.ImGui_Dummy(ctx, 0, 8)
 
         heading("Timing & Length", 0xDB6E4AFF)
         reaper.ImGui_Dummy(ctx, 0, 4)
 
-        labelText("Gap Tolerance:")
+        labelText("Gap tolerance:")
         reaper.ImGui_SameLine(ctx, 250)
         reaper.ImGui_SetNextItemWidth(ctx, 100)
         local currentGapMs = math.floor(settings.gap_tolerance * 1000 + 0.5)
@@ -364,7 +463,7 @@ function drawGui()
         rowTip("Items within this distance are grouped into the same region")
         reaper.ImGui_SameLine(ctx) reaper.ImGui_Text(ctx, "ms")
 
-        labelText("Min Region Length:")
+        labelText("Min region length:")
         reaper.ImGui_SameLine(ctx, 250)
         reaper.ImGui_SetNextItemWidth(ctx, 100)
         local currentMinMs = math.floor(settings.min_region_length * 1000 + 0.5)
@@ -378,20 +477,21 @@ function drawGui()
         heading("Tracks", 0x8261E1FF)
         reaper.ImGui_Dummy(ctx, 0, 4)
 
-        lockedCheckbox("Auto-Detect Mono/Stereo from Width", false, "Render to mono if track width is 0, stereo otherwise")
+        lockedCheckbox("Auto-detect mono/stereo from width", false, "Render to mono if track width is 0, stereo otherwise")
 
-        local changed, newVal = reaper.ImGui_Checkbox(ctx, "Highlight Tracks and Items", settings.highlight_tracks_with_regions)
+        local changed, newVal = reaper.ImGui_Checkbox(ctx, "Highlight tracks and items", settings.highlight_tracks_with_regions)
         if changed then settings.highlight_tracks_with_regions = newVal end
+        tip("Change the color of tracks and items that have regions so they stand out")
 
         if settings.highlight_tracks_with_regions then
             reaper.ImGui_Indent(ctx, 20)
 
             labelText("Preview:")
-            reaper.ImGui_SameLine(ctx, 230)
+            reaper.ImGui_SameLine(ctx, 250)
             drawPreview()
 
             labelText("Brightness:")
-            reaper.ImGui_SameLine(ctx, 230)
+            reaper.ImGui_SameLine(ctx, 250)
             levelSlider(200)
             local currentLevel = math.floor(settings.highlight_level * 100 + 0.5)
             local typedLevel = valuePopup("##level_input", currentLevel, -100, 100)
@@ -407,23 +507,23 @@ function drawGui()
         heading("Regions", 0xE0BD4BFF)
         reaper.ImGui_Dummy(ctx, 0, 4)
 
-        local changed, newVal = reaper.ImGui_Checkbox(ctx, "Color Regions Track Color", settings.color_regions_track_color)
+        local changed, newVal = reaper.ImGui_Checkbox(ctx, "Color regions the selected track color", settings.color_regions_track_color)
         if changed then settings.color_regions_track_color = newVal end
         tip("Use the track's color for created regions")
 
-        local changed, newVal = reaper.ImGui_Checkbox(ctx, "Group Items When Creating Regions", settings.group_items)
+        local changed, newVal = reaper.ImGui_Checkbox(ctx, "Group items when creating regions", settings.group_items)
         if changed then settings.group_items = newVal end
         tip("Automatically group all items within each region")
 
         if settings.group_items then
             reaper.ImGui_Indent(ctx, 20)
-            local changed, newVal = reaper.ImGui_Checkbox(ctx, "Ungroup Items on Delete", settings.ungroup_on_delete)
+            local changed, newVal = reaper.ImGui_Checkbox(ctx, "Ungroup items on delete", settings.ungroup_on_delete)
             if changed then settings.ungroup_on_delete = newVal end
             tip("When deleting regions, also ungroup any items within those regions")
             reaper.ImGui_Unindent(ctx, 20)
         end
 
-        lockedCheckbox("Delete All Regions After Render", false,
+        lockedCheckbox("Delete all regions after rendering", false,
             "Automatically delete all regions after rendering.\n" ..
             "Useful for cleaning up after batch rendering")
 
@@ -432,23 +532,25 @@ function drawGui()
         heading("Inclusion", 0x45B24BFF)
         reaper.ImGui_Dummy(ctx, 0, 4)
 
-        lockedCheckbox("Child Tracks", true, "Include items from tracks nested under the selected track")
-        lockedCheckbox("Muted Tracks", false, "Include items from muted parent tracks")
-        lockedCheckbox("Video Items", false, "Include video items when calculating region boundaries")
-        lockedCheckbox("Muted Items", false, "Include items that are muted")
+        lockedCheckbox("Child tracks", true, "Include child tracks when calculating region boundaries")
+        reaper.ImGui_SameLine(ctx, 250)
+        lockedCheckbox("Video items", false, "Include video items when calculating region boundaries")
+        lockedCheckbox("Muted tracks", false, "Include muted tracks when calculating region boundaries")
+        reaper.ImGui_SameLine(ctx, 250)
+        lockedCheckbox("Muted items", false, "Include muted items when calculating region boundaries")
 
         reaper.ImGui_Dummy(ctx, 0, 8)
 
         heading("Create Reverb Tails", 0xE6E6E6FF)
         reaper.ImGui_Dummy(ctx, 0, 4)
 
-        lockedCheckbox("Move Video Items When Adding Tails", true,
+        lockedCheckbox("Move video items when adding tails", true,
             "When Add Tails shifts stacks apart to make room for reverb tails,\n" ..
             "any video items that overlap a stack will also be moved by the same\n" ..
             "offset as that stack's audio items\n\n" ..
             "Useful when your video items are synced to specific audio stacks and\n" ..
             "you want them to stay in sync after spacing is applied\n\n" ..
-            "Note: this is independent of the 'Video Items' inclusion setting above")
+            "Note: this is independent of the 'Video items' inclusion setting above")
 
         reaper.ImGui_Dummy(ctx, 0, 8)
 

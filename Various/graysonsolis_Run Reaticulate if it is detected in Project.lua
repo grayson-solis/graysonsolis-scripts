@@ -1,6 +1,6 @@
 -- @description Run Reaticulate if it is detected in Project
 -- @author Grayson Solis
--- @version 1.1
+-- @version 1.0
 -- @about Watches the open project for the Reaticulate JSFX and starts Reaticulate once per project
 -- (Reaticulate's own Start action does nothing if it is already running)
 

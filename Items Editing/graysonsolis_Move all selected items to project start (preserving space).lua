@@ -1,3 +1,8 @@
+-- @description Move all selected items to project start
+-- @author Grayson Solis
+-- @version 1.0
+-- @about Moves selected items to the start of the project, per track. Spacing between items is kept!
+
 reaper.Undo_BeginBlock()
 reaper.SetEditCurPos(0, false, false)
 local tracks = {}

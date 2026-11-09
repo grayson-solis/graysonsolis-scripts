@@ -1,11 +1,11 @@
 -- @description Move Selected Envelope Lane Down
 -- @author Grayson Solis
--- @version 1.0
+-- @version 1.1
 -- @about Moves the selected FX parameter envelope lane down one visible lane among its plugin's envelopes
--- REAPER orders FX envelope lanes by plugin, then by their position in the track state, so this reorders that state
 
 local DIRECTION = 1
 local PLUGIN_TAGS = { VST = true, JS = true, AU = true, CLAP = true, DX = true, VIDEO_EFFECT = true, CONTAINER = true }
+local SEND_PROPS = { "D_VOL", "D_PAN", "D_PANLAW", "B_MUTE", "B_PHASE", "B_MONO", "I_SENDMODE", "I_AUTOMODE", "I_SRCCHAN", "I_DSTCHAN", "I_MIDIFLAGS" }
 
 local function tooltip(text)
   local x, y = reaper.GetMousePosition()
@@ -78,6 +78,32 @@ local function param_order(blocks)
   return table.concat(order, ",")
 end
 
+local function lane_y(track, fx, param)
+  local env = reaper.GetFXEnvelope(track, fx, param, false)
+  return env and reaper.GetEnvelopeInfo_Value(env, "I_TCPY")
+end
+
+local function rebuild_track(track)
+  local index = reaper.GetMediaTrackInfo_Value(track, "IP_TRACKNUMBER") - 1
+  local _, chunk = reaper.GetTrackStateChunk(track, "", false)
+  chunk = chunk:gsub("\n(%s*AUXRECV%s+)(%d+)", function(prefix, source)
+    source = tonumber(source)
+    return "\n" .. prefix .. (source > index and source + 1 or source)
+  end)
+  reaper.InsertTrackAtIndex(index + 1, false)
+  local copy = reaper.GetTrack(0, index + 1)
+  reaper.SetTrackStateChunk(copy, chunk, true)
+  for i = 0, reaper.GetTrackNumSends(track, 0) - 1 do
+    local send = reaper.CreateTrackSend(copy, reaper.GetSetTrackSendInfo(track, 0, i, "P_DESTTRACK", 0))
+    for _, prop in ipairs(SEND_PROPS) do
+      reaper.SetTrackSendInfo_Value(copy, 0, send, prop, reaper.GetTrackSendInfo_Value(track, 0, i, prop))
+    end
+  end
+  reaper.SetMediaTrackInfo_Value(track, "I_FOLDERDEPTH", 0)
+  reaper.DeleteTrack(track)
+  return copy
+end
+
 local function main()
   local env = reaper.GetSelectedEnvelope(0)
   if not env then return tooltip("Select an FX parameter envelope lane first") end
@@ -103,16 +129,24 @@ local function main()
     return tooltip("Already at the " .. (DIRECTION < 0 and "top" or "bottom") .. " of this plugin's envelopes")
   end
 
+  local target_param = blocks[to].param
   local new_lines = move_block(lines, blocks[from], blocks[to])
   local expected = param_order(fx_param_blocks(new_lines, fx))
 
   reaper.Undo_BeginBlock()
-  reaper.PreventUIRefresh(1)
   reaper.SetTrackStateChunk(track, table.concat(new_lines, eol) .. eol, false)
-  reaper.PreventUIRefresh(-1)
+  reaper.TrackList_AdjustWindows(false)
+
+  local moved_y, target_y = lane_y(track, fx, param), lane_y(track, fx, target_param)
+  local redrawn = moved_y and target_y and (moved_y < target_y) == (DIRECTION < 0)
+  if not redrawn and reaper.GetMediaTrackInfo_Value(track, "IP_TRACKNUMBER") > 0 then
+    reaper.PreventUIRefresh(1)
+    track = rebuild_track(track)
+    reaper.PreventUIRefresh(-1)
+  end
+
   reaper.TrackList_AdjustWindows(false)
   reaper.UpdateArrange()
-
   local moved_env = reaper.GetFXEnvelope(track, fx, param, false)
   if moved_env then reaper.SetCursorContext(2, moved_env) end
   reaper.Undo_EndBlock("Move envelope lane down", -1)

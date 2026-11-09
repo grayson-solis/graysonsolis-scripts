@@ -1,3 +1,12 @@
+-- @description Create Track Version
+-- @author Grayson Solis
+-- @version 1.0
+-- @about
+--   Duplicates selected track (and children if it's a folder) as a new version
+--   The copy is placed directly above the original, muted, collapsed to a small locked height, and named Track Name v1, v2, and so on
+--   Version numbers increment based on existing versions within the same parent folder
+
+
 reaper.Undo_BeginBlock()
 reaper.PreventUIRefresh(1)
 

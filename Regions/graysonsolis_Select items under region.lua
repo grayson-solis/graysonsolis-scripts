@@ -1,4 +1,7 @@
--- @description Select items in the region under the mouse (offers to split overshooting items). Requires SWS + ReaImGui.
+-- @description Select items under region
+-- @author Grayson Solis
+-- @version 1.0
+-- @description Select items in the region under the mouse (options show when items overlap the region borders)
 local TOL = 0.01
 
 reaper.BR_GetMouseCursorContext()

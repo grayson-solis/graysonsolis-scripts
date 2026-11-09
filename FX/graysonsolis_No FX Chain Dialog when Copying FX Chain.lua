@@ -1,6 +1,7 @@
 -- @description No FX Chain Dialog when Copying FX Chain
 -- @author Grayson Solis
 -- @version 1.0
+-- @about Stops the FX chain window from opening when you copy an FX chain by dragging it between tracks
 local mouse_was_down = false
 local mouse_press_x, mouse_press_y = 0, 0
 local DRAG_THRESHOLD = 10 

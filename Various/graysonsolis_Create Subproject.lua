@@ -2,6 +2,8 @@
 -- @author Grayson Solis
 -- @version 1.0
 -- @about 
+--   Moves the selected tracks into a new subproject, saved in its own folder inside the project directory
+--   Created folder is named after first selected track with its own media subfolder created 
 
 local USER_INPUTS = true
 local AUTO_NAME   = true

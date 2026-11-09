@@ -1,4 +1,5 @@
 -- @name RenderStacks Delete Selected Track Regions Lite
+-- @noindex
 -- @version 1.0
 -- @author Grayson Solis
 -- @description Deletes regions only from selected tracks

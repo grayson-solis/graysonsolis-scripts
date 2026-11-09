@@ -1,4 +1,5 @@
 -- @name RenderStacks Core Library Lite
+-- @noindex
 -- @version 1.0
 -- @author Grayson Solis
 -- @description Shared RenderStacks tools
@@ -196,6 +197,67 @@ local function get_all_track_regions()
         i = i + 1
     end
     return by_track
+end
+
+local function next_group_id()
+    local max_group = 0
+    for i = 0, reaper.CountMediaItems(0) - 1 do
+        local group_id = reaper.GetMediaItemInfo_Value(reaper.GetMediaItem(0, i), "I_GROUPID")
+        if group_id > max_group then max_group = group_id end
+    end
+    return max_group + 1
+end
+
+function RenderStacks.rebuild_track_regions(track, settings)
+    local new_ids = {}
+    if RenderStacks.isActuallyMuted(track) then return new_ids end
+
+    local _, track_name = reaper.GetTrackName(track, "")
+    track_name = track_name:gsub("<.->", "")
+
+    for _, region in ipairs(get_all_track_regions()[track] or {}) do
+        reaper.DeleteProjectMarker(0, region.id, true)
+    end
+
+    local color = settings.color_regions_track_color and RenderStacks.get_track_color(track) or 0
+    local valid_count = 0
+    for _, stack in ipairs(RenderStacks.detect_stacks(RenderStacks.gather_all_items(track), settings.gap_tolerance)) do
+        local stack_start, stack_end = math.huge, 0
+        for _, item in ipairs(stack) do
+            local pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+            stack_start = math.min(stack_start, pos)
+            stack_end = math.max(stack_end, pos + reaper.GetMediaItemInfo_Value(item, "D_LENGTH"))
+        end
+        if stack_end - stack_start >= settings.min_region_length and stack_start < stack_end then
+            local name = valid_count == 0 and track_name or track_name .. "_" .. valid_count
+            local region_id = reaper.AddProjectMarker(0, true, stack_start, stack_end, name, -1)
+            reaper.SetProjectMarker3(0, region_id, true, stack_start, stack_end, name, color)
+            reaper.SetRegionRenderMatrix(0, region_id, track, 1)
+            if settings.group_items then RenderStacks.group_items_with_id(stack, next_group_id()) end
+            new_ids[#new_ids + 1] = region_id
+            valid_count = valid_count + 1
+        end
+    end
+    return new_ids
+end
+
+function RenderStacks.refresh_all_regions(settings)
+    local tracks = {}
+    for track in pairs(get_all_track_regions()) do tracks[#tracks + 1] = track end
+    reaper.PreventUIRefresh(1)
+    for _, track in ipairs(tracks) do RenderStacks.rebuild_track_regions(track, settings) end
+    reaper.PreventUIRefresh(-1)
+end
+
+function RenderStacks.recolor_all_regions(settings)
+    reaper.PreventUIRefresh(1)
+    for track, regions in pairs(get_all_track_regions()) do
+        local color = settings.color_regions_track_color and RenderStacks.get_track_color(track) or 0
+        for _, region in ipairs(regions) do
+            reaper.SetProjectMarker3(0, region.id, true, region.start, region.end_pos, region.name, color)
+        end
+    end
+    reaper.PreventUIRefresh(-1)
 end
 
 local function restore_track_color(track, color)

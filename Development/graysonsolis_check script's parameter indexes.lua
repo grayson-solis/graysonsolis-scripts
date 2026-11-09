@@ -2,11 +2,11 @@
 @description Check Parameter Indexes
 @author Grayson Solis
 @version 1.0
-@about Prints each FX on the first selected track along with its parameter indexes (max 50 per FX)
+@about Prints each fx on the first selected track along with its parameter indexes (max 50 per FX)
 Directions:
-  1) Select a track in REAPER.
-  2) Run this script.
-  3) Open the ReaScript Console (View → Show Console) to see the output.
+  1) Select a track
+  2) Run this script
+  3) Open the ReaScript Console (View -> Show Console) to see the output
 ]]
 
 local MAX_PARAMS_PER_FX = 50

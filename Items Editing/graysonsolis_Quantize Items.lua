@@ -1,10 +1,10 @@
--- @description Snap selected MIDI item edges to barlines (content stays in place)
+-- @description Snap selected item edges to barlines (content stays in place)
 -- @version 1.0
--- @author Grayson
+-- @author Grayson Solis
 -- @about
---   Trims the edges of selected MIDI items to the nearest barline and resolves
---   slight overlaps or gaps between neighbouring items on the same track.
---   Items are never split and never moved, so notes keep their exact positions.
+--   Trims the edges of selected midi items to the nearest barline and resolves
+--   slight overlaps or gaps between neighbouring items on the same track
+--   Items are never split nor moved, so notes keep their positions
 
 local TOL = 0.25
 
