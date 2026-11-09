@@ -13,7 +13,7 @@ local COLOR_KEY = "P_EXT:RenderStacksLite_color"
 
 local ALL_DEFAULTS = {
     gap_tolerance = 0.01,
-    highlight_tracks_with_regions = false,
+    highlight_tracks_with_regions = true,
     highlight_level = -0.4,
 }
 

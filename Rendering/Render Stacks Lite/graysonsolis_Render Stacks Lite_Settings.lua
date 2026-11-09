@@ -25,7 +25,7 @@ local defaultSettings = {
     fade_percentage = 50,
     group_items = false,
     ungroup_on_delete = false,
-    highlight_tracks_with_regions = false,
+    highlight_tracks_with_regions = true,
     highlight_level = -0.4,
 }
 
@@ -224,6 +224,15 @@ end
 
 local RESET_HOLD_SECONDS = 0.9
 local holdStart, pulseAt, fill, lastNow = nil, -10, 0, 0
+local kofiPulseAt = -10
+
+local function pulseRing(startedAt, minX, minY, maxX, maxY, rgb)
+    local t = (reaper.time_precise() - startedAt) / 0.6
+    if t >= 0 and t < 1 then
+        local grow = 2 + 14 * t
+        reaper.ImGui_DrawList_AddRect(reaper.ImGui_GetForegroundDrawList(ctx), minX - grow, minY - grow, maxX + grow, maxY + grow, rgb | math.floor(255 * (1 - t)), 4 + grow, 0, 2)
+    end
+end
 
 local function holdButton(label, width, seconds)
     reaper.ImGui_Button(ctx, "##" .. label, width)
@@ -249,11 +258,7 @@ local function holdButton(label, width, seconds)
     local textW = reaper.ImGui_CalcTextSize(ctx, label)
     local textY = minY + (maxY - minY - reaper.ImGui_GetTextLineHeight(ctx)) / 2 - 1
     reaper.ImGui_DrawList_AddText(dl, minX + (maxX - minX - textW) / 2, textY, 0xE6E6E6FF, label)
-    local t = (now - pulseAt) / 0.6
-    if t >= 0 and t < 1 then
-        local grow = 2 + 14 * t
-        reaper.ImGui_DrawList_AddRect(reaper.ImGui_GetForegroundDrawList(ctx), minX - grow, minY - grow, maxX + grow, maxY + grow, 0xCB4A4A00 | math.floor(255 * (1 - t)), 4 + grow, 0, 2)
-    end
+    pulseRing(pulseAt, minX, minY, maxX, maxY, 0xCB4A4A00)
     return fired
 end
 
@@ -435,7 +440,13 @@ function drawGui()
         reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Button(),        0xCE70B6FF)
         reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_ButtonHovered(), 0xE47CCAFF)
         reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_ButtonActive(),  0xA55A92FF)
-        if labelButton(kofiLabel, reaper.ImGui_CalcTextSize(ctx, kofiLabel) + 32, 0x141414FF) then openUrl(KOFI_URL) end
+        if labelButton(kofiLabel, reaper.ImGui_CalcTextSize(ctx, kofiLabel) + 32, 0x141414FF) then
+            openUrl(KOFI_URL)
+            kofiPulseAt = reaper.time_precise()
+        end
+        local kofiMinX, kofiMinY = reaper.ImGui_GetItemRectMin(ctx)
+        local kofiMaxX, kofiMaxY = reaper.ImGui_GetItemRectMax(ctx)
+        pulseRing(kofiPulseAt, kofiMinX, kofiMinY, kofiMaxX, kofiMaxY, 0xCE70B600)
         reaper.ImGui_PopStyleColor(ctx, 3)
 
         reaper.ImGui_Dummy(ctx, 0, 8)
