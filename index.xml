@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="1504eb4d0d1018fd799e4151dd5de616d9ebd910" name="Grayson Solis Scripts">
+<index version="1" commit="b557805285948b3d675150f604257bc5a15a96a2" name="Grayson Solis Scripts">
   <category name="Development">
     <reapack name="graysonsolis_check script's parameter indexes.lua" type="script" desc="Check Parameter Indexes">
       <metadata>
@@ -45,46 +45,26 @@
         <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Envelopes-Automation%20Items/graysonsolis_Add%20Automation%20Item%20Under%20Midi%20Note%20in%20Item%20Above.lua</source>
       </version>
     </reapack>
-    <reapack name="graysonsolis_Move Selected Envelope Lane Down.lua" type="script" desc="Move Selected Envelope Lane Down">
-      <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
-{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
-\widowctrl\hyphauto
-
-{\pard \ql \f0 \sa180 \li0 \fi0 Moves the selected FX parameter envelope lane down one visible lane among its plugin's envelopes\par}
-}
-]]></description>
-      </metadata>
-      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
-        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Envelopes-Automation%20Items/graysonsolis_Move%20Selected%20Envelope%20Lane%20Down.lua</source>
-      </version>
-      <version name="1.1" author="Grayson Solis" time="2026-11-09T18:21:24Z">
-        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/ec6ea0039f5130b298047b2188c4b9d59d1ef397/Envelopes-Automation%20Items/graysonsolis_Move%20Selected%20Envelope%20Lane%20Down.lua</source>
-      </version>
-    </reapack>
-    <reapack name="graysonsolis_Move Selected Envelope Lane Up.lua" type="script" desc="Move Selected Envelope Lane Up">
-      <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
-{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
-\widowctrl\hyphauto
-
-{\pard \ql \f0 \sa180 \li0 \fi0 Moves the selected FX parameter envelope lane up one visible lane among its plugin's envelopes\par}
-}
-]]></description>
-      </metadata>
-      <version name="1.0" author="Grayson Solis" time="2026-11-08T04:24:23Z">
-        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Envelopes-Automation%20Items/graysonsolis_Move%20Selected%20Envelope%20Lane%20Up.lua</source>
-      </version>
-      <version name="1.1" author="Grayson Solis" time="2026-11-09T18:21:24Z">
-        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/ec6ea0039f5130b298047b2188c4b9d59d1ef397/Envelopes-Automation%20Items/graysonsolis_Move%20Selected%20Envelope%20Lane%20Up.lua</source>
-      </version>
-    </reapack>
     <reapack name="graysonsolis_Reset Envelope Segment to 0dB.lua" type="script" desc="Set envelope segment under mouse to 0 dB">
       <version name="1.1" author="Grayson Solis" time="2026-11-08T04:24:23Z">
         <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/817b2fab0155fe753fb67dcc17eedb2f0e4e4807/Envelopes-Automation%20Items/graysonsolis_Reset%20Envelope%20Segment%20to%200dB.lua</source>
       </version>
       <version name="1.0" author="Grayson Solis" time="2026-11-09T18:21:24Z">
         <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/ec6ea0039f5130b298047b2188c4b9d59d1ef397/Envelopes-Automation%20Items/graysonsolis_Reset%20Envelope%20Segment%20to%200dB.lua</source>
+      </version>
+    </reapack>
+    <reapack name="graysonsolis_Toggle Track Pitch Envelope.lua" type="script" desc="Toggle Track Pitch Envelope">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Toggles the Reapitch shift envelope on the selected track. Adds ReaPitch if it's missing and keeps the window hidden\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="Grayson Solis" time="2026-11-09T23:22:39Z">
+        <source main="main">https://github.com/grayson-solis/graysonsolis-scripts/raw/43c27644f8a321adc7aa38da078db89315fcd508/Envelopes-Automation%20Items/graysonsolis_Toggle%20Track%20Pitch%20Envelope.lua</source>
       </version>
     </reapack>
   </category>
