@@ -11,6 +11,7 @@ local RenderStacks = require("graysonsolis_Render Stacks Lite_Core")
 
 local defaultSettings = {
     ungroup_on_delete = false,
+    group_items = false,
 }
 
 local settings = RenderStacks.loadSettings(defaultSettings)
@@ -19,7 +20,7 @@ reaper.Undo_BeginBlock()
 
 local regionsToUngroup = {}
 
-if settings.ungroup_on_delete then
+if settings.ungroup_on_delete and settings.group_items then
     local idx = 0
 
     while idx < reaper.CountProjectMarkers(0) do
